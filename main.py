@@ -1,5 +1,6 @@
 import json
 import yaml
+import sys
 from jsonschema import validate, Draft7Validator
 from jsonschema.exceptions import ValidationError
 def validate_yaml_with_schema(yaml_path: str, schema_path: str):
