@@ -23,4 +23,7 @@ def validate_yaml_with_schema(yaml_path: str, schema_path: str):
 if __name__ == "__main__":
     yaml_file = "odcs/datacontract.yaml"
     schema_file = "mappings/datacontract_schema.json"
-    validate_yaml_with_schema(yaml_file, schema_file)
+    ok = validate_yaml_with_schema(yaml_file, schema_file)
+
+    if not ok:
+        sys.exit(1) 
