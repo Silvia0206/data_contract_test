@@ -82,6 +82,10 @@
         "properties": {
  
           "name": { "type": "string" },
+
+          "connection_name": { "type": "string" },
+   
+          "physicalName": { "type": "string" },
  
           "physicalType": { "type": "string" },
  
@@ -269,8 +273,6 @@
     "kind",
  
     "id",
- 
-    "name",
  
     "version",
  
