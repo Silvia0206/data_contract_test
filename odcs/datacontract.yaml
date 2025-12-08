@@ -1,0 +1,88 @@
+# Fundamentals
+apiVersion: v3.0.2 # Standard version (follows semantic versioning)
+kind: DataContract
+id: 53581432-6c55-4ba2-a65f-72344a91553a
+name: seller_payments_v1
+version: 3.3.0 # Version (follows semantic versioning)
+status: active
+ 
+dataProduct: seller # Data product name
+ 
+domain: sales # (optional), Domain
+tenant: CSDD # (optional), Node in DBF-naming
+description: # (optional)
+  purpose: Views built on top of the seller tables. # (optional)
+  limitations: null # (optional)
+  usage: null # (optional)
+tags: ['finance'] # (optional)
+ 
+# Owner
+team:
+  - username: daustin
+    role: Owner
+ 
+# Schema 
+schema:
+  - name: asset2
+    physicalType: table
+    description: Provides core payment metrics # (optional)
+    tags: [ 'finance', 'payments'] # (optional)
+ 
+  - name: asset1
+    physicalType: table
+    description: Provides core payment metrics # (optional)
+    tags: [ 'finance', 'payments'] # (optional)
+    properties:
+      - name: txn_ref_dt
+        physicalType: date
+        primaryKey: false
+        required: false
+        unique: false
+        classification: public # (optional)
+        description: Reference date for transaction # (optional)
+        tags: [ ] # (optional)
+      - name: rcvr_id
+        physicalType: string
+        primaryKey: true
+        required: false 
+        unique: false
+        classification: restricted # (optional)
+        description: A description for column rcvr_id. # (optional)
+        tags: [ 'uid' ] # (optional)
+        # Column Quality
+        quality:
+        - name: rowCount # For the beginning the following rules can be chosen: nullValues, missingValues, missingPercent, rowCount, rowCountChange, duplicateCount, duplicateValues, invalidValues, validValues
+          type: sql # in the future chose between library, sql, custom, text
+          description: Ensure row count is within expected volume range
+          dimension: completeness
+          query: |
+            SELECT COUNT(*) FROM ${object} WHERE ${property} IS NOT NULL
+          mustBeGreaterThan: 0  # See supported operators here: https://bitol-io.github.io/open-data-contract-standard/v3.0.2/#valid-properties-for-operator
+          mustBeLessThan: 3600   # See supported operators here: https://bitol-io.github.io/open-data-contract-standard/v3.0.2/#valid-properties-for-operator
+          severity: blocks # block, quarantine, alert, ignore
+    # Table Quality
+    quality:
+      - name: rowCount
+        type: sql
+        description: Ensure row count is within expected volume range
+        dimension: completeness
+        query: |
+          SELECT COUNT(*) FROM ${object}
+        mustBeGreaterThan: 10
+        mustBeLessThan: 10000   
+        severity: alert # block, quarantine, alert, ignore
+ 
+# SLA
+slaDefaultElement: asset1.txn_ref_dt
+slaProperties:
+  - property: latency # Property, see list of values in DP QoS: https://opendataproducts.org/DataQoS-as-code/#introduction
+    value: 4
+    unit: d # d, day, days for days; y, yr, years for years
+    element: asset1.txn_ref_dt (This would not be needed as it is the same table.column as the default one)
+  - property: frequency
+    value: 1
+    valueExt: 1
+    unit: d
+    element: asset2.txn_ref_dt
+  - property: generalAvailability
+    value: "2022-05-12T09:30:10-08:00"
