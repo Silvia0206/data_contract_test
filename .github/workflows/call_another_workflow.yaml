@@ -2,11 +2,12 @@ name: Trigger Validation Workflow
 
 on:
   push:
-    branches:
-      - main  # or any branch you're targeting for workflowA to run on
+    branches: [main]
 
 jobs:
-  call-reusable-workflow:
-    uses: ashwinkumarkondath/data-contracts-repo/.github/workflows/validation-trigger.yaml@main
+  validate:
+    uses: ashwinkumarkondath/data-contracts-repo/.github/workflows/validate-odcs.yml@main
     with:
-      branch: 'main'
+      input-path: contracts/odcs/datacontract.yaml
+    secrets:
+      CALLER_REPO_TOKEN: ${{ secrets.CALLER_REPO_TOKEN }}
