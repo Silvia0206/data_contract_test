@@ -8,6 +8,7 @@ jobs:
   validate:
     uses: ashwinkumarkondath/data-contracts-repo/.github/workflows/validate-odcs.yaml@main
     with:
+      caller-repo: ${{ github.repository }}      
       input-path: contracts/odcs/datacontract.yaml
     secrets:
       CALLER_REPO_TOKEN: ${{ secrets.CALLER_REPO_TOKEN }}
