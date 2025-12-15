@@ -13,7 +13,8 @@ jobs:
       input-path: odcs/datacontract.yaml
     secrets:
       CALLER_REPO_TOKEN: ${{ secrets.CALLER_REPO_TOKEN }}
-  push:
+  push-atlan:
+    needs: validate
     uses: ashwinkumarkondath/data-contracts-repo/.github/workflows/convert-odcs-atlan.yaml@main
     with:
       caller-repo: ${{ github.repository }}      
