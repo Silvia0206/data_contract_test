@@ -6,7 +6,7 @@ on:
 
 jobs:
   validate:
-    uses: ashwinkumarkondath/data-contracts-repo/.github/workflows/validate-odcs.yml@main
+    uses: ashwinkumarkondath/data-contracts-repo/.github/workflows/validate-odcs.yaml@main
     with:
       input-path: contracts/odcs/datacontract.yaml
     secrets:
