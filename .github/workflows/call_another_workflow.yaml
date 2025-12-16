@@ -21,3 +21,5 @@ jobs:
       input-path: odcs/datacontract.yaml
     secrets:
       CALLER_REPO_TOKEN: ${{ secrets.CALLER_REPO_TOKEN }}
+      ATLAN_BASE_URL: ${{ secrets.ATLAN_BASE_URL }}
+      ATLAN_API_KEY: ${{ secrets.ATLAN_API_KEY }}
