@@ -26,7 +26,7 @@ schema:
         description: Reference date for transaction # (optional)
         tags: [ 'PII' ] # (optional)
       - name: trade_timestamp
-        physicalType: string
+        physicalType: number
         primaryKey: false
         required: true
         unique: false
